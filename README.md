@@ -1,5 +1,7 @@
-fdTheme - 个人自制wordpress主题
-------------------------------
+fdTheme - my first wordpress theme
+===
+
+fdTheme alpha 1.0
 
 DEMO:[hhs.im](http://hhs.im/ "hhs.im")
 
