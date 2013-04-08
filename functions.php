@@ -19,6 +19,7 @@ if(function_exists('register_sidebar')){
 		));
 }
 
+//设置标签参数
 function theme_tags($args) {
 	$args = array(
 		'largest' => 0.75,
@@ -34,6 +35,7 @@ function theme_tags($args) {
 
 add_filter('widget_tag_cloud_args','theme_tags');
 
+//生成面包屑导航
 function theme_breadcrumb() {
 	echo '<ul class="breadcrumb clearfix">';
 	echo '<li><a href="' . get_settings('home') . '">' . get_bloginfo('name') . '</a>';
@@ -54,6 +56,66 @@ function theme_breadcrumb() {
         echo "<li>".the_title('','', FALSE)."</li>"; 
 	}
 	echo '</ul>';
+}
+
+//生成分页模板
+function theme_pagination($range = 5){
+	global $paged, $wp_query;
+	if(!$max_page){
+		$max_page = $wp_query->max_num_pages;
+	}
+
+	if($max_page > 1){
+		if(!$paged){
+			$paged = 1;
+		}
+		if($paged != 1){
+			echo "<a href='" . get_pagenum_link(1) . "' class='extend' title='跳转到首页'> <<首页 </a>";
+		}
+
+		previous_posts_link(' << ');
+
+	    if($max_page > $range){
+			if($paged < $range){
+				for($i = 1; $i <= ($range + 1); $i++){
+					echo "<a href='" . get_pagenum_link($i) ."'";
+					if($i == $paged){
+						echo " class='current'";
+					}
+					echo ">$i</a>";
+				}
+			}elseif($paged >= ($max_page - ceil(($range / 2)))){
+				for($i = $max_page - $range; $i <= $max_page; $i++){
+					echo "<a href='" . get_pagenum_link($i) ."'";
+					if($i == $paged){
+						echo " class='current'";
+					}
+					echo ">$i</a>";
+				}
+			}elseif($paged >= $range && $paged < ($max_page - ceil(($range / 2)))){
+				for($i = ($paged - ceil($range / 2)); $i <= ($paged + ceil(($range / 2))); $i++){
+					echo "<a href='" . get_pagenum_link($i) ."'";
+					if($i == $paged){
+						echo " class='current'";
+					}
+					echo ">$i</a>";
+				}
+			}
+		}else{
+	    	for($i = 1; $i <= $max_page; $i++){
+	    		echo "<a href='" . get_pagenum_link($i) ."'";
+	    		if($i==$paged){
+	    			echo " class='current'";
+	    		}echo ">$i</a>";
+	    	}
+	    }
+
+		next_posts_link(' >> ');
+
+	    if($paged != $max_page){
+	    	echo "<a href='" . get_pagenum_link($max_page) . "' class='extend' title='跳转到最后一页'> 末页>>| </a>";
+	    }
+	}
 }
 
 ?>

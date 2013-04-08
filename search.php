@@ -22,6 +22,9 @@
 							</footer>
 						</article>
 					<?php endwhile; ?>
+					<div class="pagination">
+						<?php theme_pagination(5); ?>
+					</div>
 				<?php else : ?>
 
 				<?php endif; ?>

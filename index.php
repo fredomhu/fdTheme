@@ -20,11 +20,14 @@
 							</footer>
 						</article>
 					<?php endwhile; ?>
+					<div class="pagination">
+						<?php theme_pagination(5); ?>
+					</div>
 				<?php else : ?>
 
 				<?php endif; ?>
 			</div>
-			<?php if(function_exists('wp_page_numbers')) : wp_page_numbers(); endif; ?>
+
 		</div>
 
 <?php get_sidebar(); get_footer(); ?>
