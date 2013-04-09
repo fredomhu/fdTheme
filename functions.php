@@ -33,7 +33,16 @@ function theme_tags($args) {
 	return $args;
 }
 
-add_filter('widget_tag_cloud_args','theme_tags');
+add_filter('widget_tag_cloud_args', 'theme_tags');
+
+//自定义默认头像
+function theme_default_avatar($avatar_defaults) {
+    $my_avatar = get_bloginfo('template_directory') . '/images/avatar.png';
+    $avatar_defaults[$my_avatar] = "默认头像";
+    return $avatar_defaults;
+}
+
+add_filter('avatar_defaults', 'theme_default_avatar');
 
 //生成面包屑导航
 function theme_breadcrumb() {
